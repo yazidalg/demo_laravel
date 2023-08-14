@@ -1,8 +1,6 @@
 name: Bump version
 on:
   push:
-    tags:
-      - "v*-asset"
     branches:
       - main
 jobs:
