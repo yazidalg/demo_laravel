@@ -1,0 +1,7 @@
+name: Test Create Tag
+on:
+  push:
+    tags:
+    - "v*-tag*"
+  - name: Check Out Repo
+    uses: actions/checkout@v2
