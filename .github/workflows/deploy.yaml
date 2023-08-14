@@ -2,7 +2,7 @@ name: Bump version
 on:
   push:
     tags:
-      - "v*-asset*"
+      - 'v*-asset*'
     branches:
       - main
 jobs:
