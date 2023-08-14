@@ -3,7 +3,9 @@ name: Releases
 on: 
   push:
     tags:
-    - '*'
+    - '*-asset*'
+    branches:
+    - main
 
 jobs:
   build:
