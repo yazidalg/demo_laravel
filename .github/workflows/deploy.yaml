@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/api
-          tags: v0.0.${{ github.run_number }}
+          tags: v0.0.16-rc
           push: true
           file: Dockerfile
           context: .
