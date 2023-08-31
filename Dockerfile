@@ -1,34 +1,26 @@
-FROM php:8.1-fpm
+FROM php:8.1-alpine
 
-ARG user
-ARG uid
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
+WORKDIR /var/www/html
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN apk update && apk add --no-cache \
     libpng-dev \
-    libonig-dev \
-    libxml2-dev \
+    jpeg-dev \
+    freetype-dev \
     zip \
-    unzip \
-    vim 
+    unzip
 
-# clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql
 
-# install php extension
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
-# get latest Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# create user system to run composer and artisan
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+COPY . .
 
-# setup working directory
-WORKDIR /var/www/
+RUN composer install
 
-USER $user
+EXPOSE 9000
+CMD php artisan serve --host=0.0.0.0 --port=9000
