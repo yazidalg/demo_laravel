@@ -23,8 +23,5 @@ jobs:
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/api
-          tags: v0.0.16-rc
           push: true
-          file: Dockerfile
-          context: .
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v0.0.${{ github.sha }}
