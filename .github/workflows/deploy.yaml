@@ -20,6 +20,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
+      - name: Get short of git commit hash
+        id: sha
+        run:
+          git_hash=$(git rev-parse --short ${{ github.sha }})
+          echo "::set-output name=short_sha::$git_hash"
+      
+      - name: Print short commit sha
+        run: echo ${{ steps.sha.outputs.short_sha }}
+      
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
