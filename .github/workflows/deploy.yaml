@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v0.0.${{ GITHUB_SHA::6 }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v0.0.${{ github.sha::6 }}
   
   deploy:
     name: Setup git and deploy to k8s
