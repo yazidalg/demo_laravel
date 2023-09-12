@@ -46,4 +46,4 @@ jobs:
           repo-alias: 'api-chart'
           value-files: 'values.yaml'
         env:
-          KUBECONFIG_FILE: {{ secrets.KUBECONFIG }}
+          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
