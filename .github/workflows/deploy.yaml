@@ -37,8 +37,6 @@ jobs:
       
       - name: 'Helm Chart'
         uses: 'deliverybot/helm@v1'
-        env:
-          KUBECONFIG_FILE: {{ secrets.KUBECONFIG }}
         with:
           release: 'api'
           namespace: 'api-ns'
@@ -47,3 +45,5 @@ jobs:
           repo: 'https://yazidalg.github.io/helm-demo-laravel/'
           repo-alias: 'api-chart'
           value-files: 'values.yaml'
+        env:
+          KUBECONFIG_FILE: {{ secrets.KUBECONFIG }}
