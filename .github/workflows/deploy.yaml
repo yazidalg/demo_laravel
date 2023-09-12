@@ -35,15 +35,4 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v-{{ steps.sha.outputs.short_sha }}
       
-      - name: 'Helm Chart'
-        uses: 'deliverybot/helm@v1'
-        with:
-          release: 'api'
-          namespace: 'api-ns'
-          chart: 'api/api-chart'
-          token: '${{ github.token }}'
-          repo: 'https://yazidalg.github.io/helm-demo-laravel/'
-          repo-alias: 'api-chart'
-          value-files: 'values.yaml'
-        env:
-          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+      
