@@ -1,0 +1,16 @@
+deployment:
+  namespace: api-ns
+  replicaCount: 1
+  containers:
+    ports: 8080
+    image:
+      repository: 211104/image-tumbal
+      tag: __TAG__
+
+service:
+  type:
+    clusterIP:
+      port: 80
+      targerPort: 8080
+      protocol: TCP
+    nodePort: []
