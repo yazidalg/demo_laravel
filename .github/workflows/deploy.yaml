@@ -52,9 +52,9 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Print sha
-        run: echo "${{ $OUTPUT_SHA }}"
+        run: echo "$OUTPUT_SHA"
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,${{ $OUTPUT_SHA }},g' values.yaml
+          sed -i 's,__TAG__,$OUTPUT_SHA,g' values.yaml
           cat values.yaml
