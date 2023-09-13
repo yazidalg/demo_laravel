@@ -17,7 +17,7 @@ jobs:
       - name: Get short of git commit hash
         id: sha
         run: |
-          git_hash=$(git rev-parse --short ${{ github.sha }})
+          git_hash=$(git describe --match 'v[0-9]*' --tags --always)
           echo "::set-output name=short_sha::$git_hash"
       
       - name: Print short commit sha
@@ -41,12 +41,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
-      - name: Get short of git commit hash
-        id: sha
-        run: |
-          git_hash=$(git rev-parse --short ${{ github.sha }})
-          echo "::set-output name=short_sha::$git_hash"
 
       - name: update deployment
         run: |
