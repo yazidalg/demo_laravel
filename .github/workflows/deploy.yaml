@@ -42,6 +42,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Get short of git commit hash
+        id: sha
+        run: |
+          git_hash=$(git rev-parse --short ${{ github.sha }})
+          echo "::set-output name=short_sha::$git_hash"
+
+      - name: update deployment
+        run: |
+          sed -i 's,__TAG__,${{ steps.sha.outputs.short_sha }}|' values.yaml
+          cat values.yaml
+          
       - name: 'Helm Chart'
         uses: vimeda/helm@v1.6.8
         env:
