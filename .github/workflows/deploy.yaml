@@ -41,11 +41,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-        
+
       - name: Print sha
-        run: echo "${{ needs.build.sha.outputs.short_sha }}"
+        run: echo "${{ needs.build.outputs.sha.outputs.short_sha }}"
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,${{ needs.build.sha.outputs.short_sha }},g' values.yaml
+          sed -i 's,__TAG__,${{ needs.build.outputs.sha.outputs.short_sha }},g' values.yaml
           cat values.yaml
