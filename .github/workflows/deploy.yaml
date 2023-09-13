@@ -55,6 +55,9 @@ jobs:
         run: echo "${{ env.OUTPUT_SHA }}"
 
       - name: update deployment
+        env:
+          OUTPUT_SHA: ${{ needs.build.outputs.output_sha }}
+        run: echo "$OUTPUT_SHA"
         run: |
-          sed -i 's,__TAG__,${{ env.OUTPUT_SHA }},g' values.yaml
+          sed -i 's,__TAG__,$OUTPUT_SHA,g' values.yaml
           cat values.yaml
