@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: '${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v-{{ steps.sha.outputs.short_sha }}'
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v-${{ steps.sha.outputs.short_sha }}
   
   helm:
     runs-on: ubuntu-latest
