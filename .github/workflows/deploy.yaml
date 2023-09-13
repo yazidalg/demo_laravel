@@ -50,7 +50,7 @@ jobs:
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,${{ steps.sha.outputs.short_sha }}|' values.yaml
+          sed -i 's,__TAG__,${{ steps.sha.outputs.short_sha }},g' values.yaml
           cat values.yaml
           
       - name: 'Helm Chart'
