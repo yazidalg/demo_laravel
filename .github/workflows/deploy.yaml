@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-env:
-  SHA: git describe --match 'v[0-9]*' --tags --always
 
 jobs:
   build:
@@ -13,8 +11,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name:
-        run: echo "PRINT --> $SHA"
       - name: Checkout Code
         uses: actions/checkout@v2
 
@@ -54,7 +50,7 @@ jobs:
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,$SHA,g' values.yaml
+          sed -i 's,__TAG__,${{ needs.build.outputs.short_sha }},g' values.yaml
           cat values.yaml
           
       - name: 'Helm Chart'
