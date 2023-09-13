@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v${{ steps.sha.outputs.short_sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v-$SHA
   
   helm:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,${{ steps.sha.outputs.short_sha }},g' values.yaml
+          sed -i 's,__TAG__,$SHA,g' values.yaml
           cat values.yaml
           
       - name: 'Helm Chart'
