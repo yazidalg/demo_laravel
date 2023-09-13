@@ -8,8 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    outputs:
+      output_sha: ${{ steps.sha.outputs.short_sha }}
+
     permissions:
       contents: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -39,13 +44,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - env:
+          OUTPUT_SHA: ${{ needs.build.outputs.output_sha }}
+        run: echo "$OUTPUT_SHA"
+
       - name: Checkout
         uses: actions/checkout@v1
 
       - name: Print sha
-        run: echo "${{ needs.build.outputs.sha.outputs.short_sha }}"
+        run: echo "${{ $OUTPUT_SHA }}"
 
       - name: update deployment
         run: |
-          sed -i 's,__TAG__,${{ needs.build.outputs.sha.outputs.short_sha }},g' values.yaml
+          sed -i 's,__TAG__,${{ $OUTPUT_SHA }},g' values.yaml
           cat values.yaml
