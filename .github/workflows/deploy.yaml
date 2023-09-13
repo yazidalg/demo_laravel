@@ -58,5 +58,5 @@ jobs:
         env:
           OUTPUT_SHA: ${{ needs.build.outputs.output_sha }}
         run: |
-          sed -i 's,__TAG__,$OUTPUT_SHA,g' values.yaml
+          sed -i "s,__TAG__,$OUTPUT_SHA,g" values.yaml
           cat values.yaml
