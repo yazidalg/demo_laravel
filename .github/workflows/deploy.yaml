@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  SHA: git describe --match 'v[0-9]*' --tags --always
 
 jobs:
   build:
