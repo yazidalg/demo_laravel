@@ -60,7 +60,14 @@ jobs:
         run: |
           sed -i "s,__TAG__,$OUTPUT_SHA,g" values.yaml
           cat values.yaml
-
+  
+  tag:
+    runs-on: ubuntu-latest
+    needs: [helm]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
       - name: Create tag
         uses: Klemensas/action-autotag@stable
         with:
