@@ -60,3 +60,9 @@ jobs:
         run: |
           sed -i "s,__TAG__,$OUTPUT_SHA,g" values.yaml
           cat values.yaml
+
+      - name: Create tag
+        with:
+          GITHUB_TOKEN: "${secrets.GITHUBTOKEN}"
+          tag_prefix: 'deploy-v*-ci*'
+          
