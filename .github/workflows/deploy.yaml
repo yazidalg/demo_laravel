@@ -64,6 +64,5 @@ jobs:
       - name: Create tag
         uses: Klemensas/action-autotag@stable
         with:
-          GITHUB_TOKEN: "${{secrets.GITHUBTOKEN}}"
           tag_prefix: 'deploy-v*-ci*'
 
