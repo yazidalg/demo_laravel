@@ -2,8 +2,8 @@ name: Releases
 
 on: 
   push:
-    branches:
-      - main
+    tag:
+      - 'deploy-v*-ci*'
 
 jobs:
   build:
