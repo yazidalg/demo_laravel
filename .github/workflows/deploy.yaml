@@ -1,6 +1,6 @@
 name: Releases
 
-on: 
+on:
   push:
     tags:
     - 'v*-develop'
@@ -19,13 +19,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      
+
       - name: Get short of git commit hash
         id: sha
         run: |
           git_hash=$(git describe --match 'v[0-9]*' --tags --always)
           echo "::set-output name=short_sha::$git_hash"
-      
+
       - name: Print short commit sha
         run: echo ${{ steps.sha.outputs.short_sha }}
 
@@ -34,13 +34,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:v-${{ steps.sha.outputs.short_sha }}
-  
+
   helm:
     runs-on: ubuntu-latest
     needs: [build]
@@ -61,7 +61,7 @@ jobs:
         run: |
           sed -i "s,__TAG__,$OUTPUT_SHA,g" values.yaml
           cat values.yaml
-  
+
   deploy_dev:
     runs-on: ubuntu-20.04
     needs: [build]
@@ -72,7 +72,7 @@ jobs:
 
       - name: Print Output Environtments
         run: echo This is Development Environtment
-  
+
   deploy__prod:
     runs-on: ubuntu-20.04
     needs: [build]

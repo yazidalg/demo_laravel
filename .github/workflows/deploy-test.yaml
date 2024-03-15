@@ -1,0 +1,20 @@
+name: Learn CI
+on:
+  push:
+    tags:
+      - 'v*-assets*'
+
+jobs:
+  my_first_job:
+    runs-on: ubuntu-22.04
+    if: !contains(github.ref_name, 'v*-assets*')
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+  second_job:
+    if: contains(github.ref_name, 'assets')
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
