@@ -2,12 +2,14 @@ name: Learn CI
 on:
   push:
     tags:
-      - 'v*-assets*'
+    - 'v*-assets*'
+    - 'k8s-v*-staging*'
+    - 'k8s-v*-production*'
 
 jobs:
   my_first_job:
     runs-on: ubuntu-22.04
-    if: !contains(github.ref_name, 'v*-assets*')
+    if: contains(github.ref_name, 'v*-assets*')
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v2
