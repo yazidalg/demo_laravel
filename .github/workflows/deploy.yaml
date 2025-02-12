@@ -26,19 +26,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}
 
-      - name: Get Image information
+      - name: Get Image Information
         id: get-image
         run: |
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}"
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
-          echo "DEBUG: Set image output to $IMAGE"
-
+          echo "DEBUG: Setting image output to $IMAGE"
+          echo "::set-output name=image::$IMAGE"
   deploy_dev:
     runs-on: ubuntu-20.04
     needs: build
