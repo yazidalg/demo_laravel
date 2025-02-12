@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: get image information
-        run: echo ${{ meeds.build.outputs.image }}
+        run: echo ${{ needs.build.outputs.image }}
 
       - name: Print Output Environtments
         run: echo This is Development Environtment
