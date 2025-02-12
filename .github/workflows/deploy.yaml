@@ -27,6 +27,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and Push Docker Image
+        id: build-push # Added an ID to reference this step's outputs
         uses: docker/build-push-action@v4
         with:
           push: true
@@ -35,14 +36,14 @@ jobs:
       - name: Get Image Information
         id: get-image
         run: |
-          IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}"
+          # Extract the first tag from the build-push action's output
+          IMAGE=$(echo "${{ steps.build-push.outputs.tags }}" | cut -d ',' -f 1)
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
           echo "DEBUG: Setting image output to $IMAGE"
 
       - name: Debug Step Output
         run: |
           echo "DEBUG: Step Output Image -> ${{ steps.get-image.outputs.image }}"
-          cat "$GITHUB_OUTPUT" || echo "DEBUG: GITHUB_OUTPUT not found!"
 
   deploy_dev:
     runs-on: ubuntu-20.04
