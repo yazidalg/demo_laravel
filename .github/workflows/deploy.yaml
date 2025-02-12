@@ -34,7 +34,8 @@ jobs:
 
       - name: Get Image information
         id: get-image
-        run: echo "image=${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}" >> $GITHUB_ENV
 
   deploy_dev:
     runs-on: ubuntu-20.04
@@ -43,6 +44,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Print Image Name
+        env:
+          IMAGE: ${{ env.IMAGE }}
+        run: |
+          echo "Image from build: $IMAGE"
 
       - name: get image information
         run: echo "test debug ${{ needs.build.outputs.image }}"
