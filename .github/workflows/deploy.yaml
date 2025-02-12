@@ -38,11 +38,11 @@ jobs:
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}"
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
           echo "DEBUG: Setting image output to $IMAGE"
-          echo "::set-output name=image::$IMAGE"
+
   deploy_dev:
     runs-on: ubuntu-20.04
     needs: build
-    if: contains(github.ref, 'develop')
+    if: contains(github.ref_name, 'develop')
 
     steps:
       - name: Checkout Code
