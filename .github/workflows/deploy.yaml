@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      output_sha: ${{ steps.sha.outputs.short_sha }}
       image: ${{ steps.get-image.outputs.image }}
 
     permissions:
@@ -35,7 +34,7 @@ jobs:
 
       - name: Get Image information
         id: get-image
-        run: echo "image=${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}" >> $GITHUB_OUTPUT
+        run: echo "image=${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
 
   deploy_dev:
     runs-on: ubuntu-20.04
