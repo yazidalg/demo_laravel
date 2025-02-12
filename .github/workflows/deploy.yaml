@@ -39,14 +39,14 @@ jobs:
 
   deploy_dev:
     runs-on: ubuntu-20.04
-    needs: [build]
+    needs: build
     if: contains(github.event.ref, 'develop')
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: get image information
-        run: echo ${{ steps.build.outputs.image }}
+        run: echo ${{ meeds.build.outputs.image }}
 
       - name: Print Output Environtments
         run: echo This is Development Environtment
