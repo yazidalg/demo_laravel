@@ -39,6 +39,10 @@ jobs:
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
           echo "DEBUG: Setting image output to $IMAGE"
 
+      - name: Debug Output Image
+        run: |
+          echo "DEBUG: Image Output = ${{ steps.get-image.outputs.image }}"
+
   deploy_dev:
     runs-on: ubuntu-20.04
     needs: build
@@ -53,6 +57,10 @@ jobs:
           echo "DEBUG: Needs output: ${{ needs.build.outputs.image }}"
           echo "DEBUG: GITHUB_REF: ${{ github.ref }}"
           echo "DEBUG: GITHUB_REF_NAME: ${{ github.ref_name }}"
+
+      - name: Check Passed Image
+        run: |
+          echo "DEBUG: Needs.build.outputs.image = ${{ needs.build.outputs.image }}"
 
       - name: Print Image Name
         run: |
