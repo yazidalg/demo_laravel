@@ -57,7 +57,6 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}
           format: "table"
-          output: "sarif"
 
   deploy_dev:
     runs-on: ubuntu-latest
