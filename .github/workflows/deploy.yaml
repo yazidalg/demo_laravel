@@ -55,13 +55,13 @@ jobs:
       - name: Container Scanning
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ needs.build.outputs.image }}
+          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/image-tumbal:${{ github.ref_name }}
           format: "table"
           output: "sarif"
 
   deploy_dev:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, container_scanning]
     if: contains(github.ref_name, 'develop')
 
     steps:
