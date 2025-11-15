@@ -45,6 +45,20 @@ jobs:
         run: |
           echo "DEBUG: Step Output Image -> ${{ steps.get-image.outputs.image }}"
 
+  container_scanning:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Container Scanning
+        uses: aquasecurity/trivy-action@@0.28.0
+        with:
+          image-ref: ${{ needs.build.outputs.image }}
+          format: "table"
+          output: "sarif"
+
   deploy_dev:
     runs-on: ubuntu-20.04
     needs: build
